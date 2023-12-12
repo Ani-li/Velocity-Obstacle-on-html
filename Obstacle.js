@@ -8,7 +8,7 @@ class Obstacle{
 
     Initial(){
         this.Obs.translation = new Two.Vector(Math.random() * two.width,Math.random() * two.height);
-        this.Dir = new Two.Vector(Math.random(),Math.random());
+        this.Dir = new Two.Vector(Math.random() * 2 - 1,Math.random() * 2 - 1);
         this.Dir = this.Dir.normalize();
     }
 
@@ -16,8 +16,17 @@ class Obstacle{
     ///             边界检测           |
     ///--------------------------------
     Stop(){
-        if(this.Obs.translation.x > two.width || this.Obs.translation.x < 0 || this.Obs.translation.y <0 || this.Obs.translation > two.height){
-            this.Initial();
+        if(this.Obs.translation.x > two.width){
+            this.Obs.translation.x -= two.width;
+        }
+        if(this.Obs.translation.x < 0){
+            this.Obs.translation.x += two.width;
+        }
+        if(this.Obs.translation.y < 0){
+            this.Obs.translation.y += two.height;
+        }
+        if(this.Obs.translation.y > two.height){
+            this.Obs.translation.y -= two.height;
         }
     }
 
