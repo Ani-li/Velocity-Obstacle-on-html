@@ -20,6 +20,7 @@ class PasserGuy{
       this.Guy = two.makeCircle(GlobalClass.Peo_Size,GlobalClass.Peo_Size,GlobalClass.Peo_Size);
       this.StartPoint = Start;
       this.EndPoint = End;
+      this.Guy.fill = 'red'
     }
 
     ///--------------------------------
@@ -50,11 +51,7 @@ class PasserGuy{
     ///         改变目标点             |
     ///--------------------------------
     ChangeDestination(x,y){
-      this.speed = this.defaultSpeed;
-      this.StartPoint = this.Guy.translation;
-      this.End = new Two.Vector(x,y);
-      this.Dir = new Two.Vector(this.End.x,this.End.y).sub(this.StartPoint);
-      this.Dir = this.Dir.normalize();
+      this.EndPoint = new Two.Vector(x,y);
     }
 
     ///-----------------------------------------------------------------------------------------------------------///
@@ -104,7 +101,7 @@ class PasserGuy{
         for(var i = 0; i<=GlobalClass.Peo_Dir_Sampler_cut ; i++){
           var step = (i*GlobalClass.Peo_Dir_Sampler_cut) * 360;
           var d = new Two.Vector(Math.cos(step),Math.sin(step));
-          var fp = new Two.Vector(this.Guy.translation.x + GlobalClass.Peo_Speed * GlobalClass.time * d.x,this.Guy.translation.y + GlobalClass.Peo_Speed * GlobalClass.time * d.y);
+          var fp = new Two.Vector(this.Guy.translation.x + GlobalClass.Peo_Speed * (GlobalClass.time + GlobalClass.time_future) * d.x,this.Guy.translation.y + GlobalClass.Peo_Speed * (GlobalClass.time + GlobalClass.time_future) * d.y);
           this.Dir.push(d);
           this.Future_P.push(fp);
         }
@@ -146,8 +143,8 @@ class PasserGuy{
 
 
     Initial(){}
-    Update(){
-      this.Find_Path([]);
+    Update(ObsList){
+      this.Find_Path(ObsList);
       //this.Move(frameCount);
       //this.Stop();
       //this.RayTesting(PeopleList);

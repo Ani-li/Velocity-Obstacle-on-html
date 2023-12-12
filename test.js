@@ -22,9 +22,9 @@ for(var i = 0 ; i<1 ; i++){
   peopleArray.push(people);
 }
 
-peopleArray.forEach(function(p){p.GenerateAtStartPoint()})
+peopleArray.forEach(function(p){p.GenerateAtStartPoint()});
 
-              //获取鼠标点击，改变目标位置
+            //获取鼠标点击，改变目标位置
 document.addEventListener("click", function (e) {
   peopleArray.forEach(function(p){
     p.ChangeDestination(e.clientX,e.clientY);
@@ -34,19 +34,44 @@ document.addEventListener("click", function (e) {
 
 ///--------------------------------------------------------------------------
 
+
+///Obstacle初始化--------------------------------------------------------------------------
+var Obs_Pos_list = []
+var Obs_list = []
+for(var i = 0 ; i<GlobalClass.number_obstacles ; i++){
+  var obs = new Obstacle();
+  Obs_list.push(obs);
+}
+
+Obs_list.forEach(function(o){
+  o.Initial();
+})
+///--------------------------------------------------------------------------
+
+
+///--------------------------------
+///             主循环             |
+///--------------------------------
 two
   .bind('resize', function() {
     
   })
   .bind('update', function(frameCount) {
+    Obs_Pos_list = []
 
     peopleArray.forEach(function(p){
       background.add(p.Guy);
-    })
-    
+    });
+    Obs_list.forEach(function(o){
+      background.add(o.Obs);
+    });
 
+    Obs_list.forEach(function(o){
+      var p = o.Update();
+      Obs_Pos_list.push(p);
+    });
     peopleArray.forEach(function(p){
-      p.Update();
+      p.Update(Obs_Pos_list);
     })
     
 
