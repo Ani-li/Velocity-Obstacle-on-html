@@ -22,7 +22,7 @@ for(var i = 0 ; i<1 ; i++){
   peopleArray.push(people);
 }
 
-peopleArray.forEach(function(p){p.GenerateAtStartPoint()});
+peopleArray.forEach(function(p){p.Initial()});
 
             //获取鼠标点击，改变目标位置
 document.addEventListener("click", function (e) {
@@ -30,8 +30,6 @@ document.addEventListener("click", function (e) {
     p.ChangeDestination(e.clientX,e.clientY);
   })
 })
-
-
 ///--------------------------------------------------------------------------
 
 
@@ -73,10 +71,6 @@ two
     peopleArray.forEach(function(p){
       p.Update(Obs_Pos_list);
     })
-    
-
-
-
   })
   .play();
 

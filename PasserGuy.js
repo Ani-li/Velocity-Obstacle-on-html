@@ -4,6 +4,7 @@ class PasserGuy{
     Guy;
     //基础属性
     id;
+    Texture = 'Peo_Tex.png';
     
     //避障检测
     StartPoint;
@@ -12,15 +13,17 @@ class PasserGuy{
     Future_P = [];
     Reach_Target = false;
 
-    //检测部分
-    ray_Length = 1;
+    //可视化部分
+    VisTool;
+
 
     constructor(Start,End,id){
       this.id = id;
-      this.Guy = two.makeCircle(GlobalClass.Peo_Size,GlobalClass.Peo_Size,GlobalClass.Peo_Size);
+      this.Guy = new Two.Sprite(this.Texture,100,100,1,1,0);
       this.StartPoint = Start;
       this.EndPoint = End;
-      this.Guy.fill = 'red'
+      var tex = new Two.Texture(this.Texture);
+      this.Guy.scale = 1;
     }
 
     ///--------------------------------
@@ -28,14 +31,6 @@ class PasserGuy{
     ///--------------------------------
     GenerateAtStartPoint(){
       this.Guy.translation = this.StartPoint;
-    }
-
-    ///--------------------------------
-    ///             移动               |
-    ///--------------------------------
-    Move(frameCount){
-      this.Guy.translation.x += this.speed * this.Dir.x;
-      this.Guy.translation.y += this.speed * this.Dir.y;
     }
 
     ///--------------------------------
@@ -53,28 +48,6 @@ class PasserGuy{
     ChangeDestination(x,y){
       this.EndPoint = new Two.Vector(x,y);
     }
-
-    ///-----------------------------------------------------------------------------------------------------------///
-    ///                                          检测部分                                                          ///
-    ///-----------------------------------------------------------------------------------------------------------///
-
-
-    ///--------------------------------
-    ///           距离检测             |
-    ///--------------------------------
-    RayTesting(PeopleList){
-      for(var i = 0 ; i<PeopleList.length ; i++){
-        if(i != this.id){
-          if(this.Guy.translation.distanceTo(PeopleList[i].Guy.translation)<50){
-            this.Guy.fill = 'red';
-            return
-          }
-        }
-        
-      }
-      this.Guy.fill = 'white';
-    }
-
 
     ///-----------------------------------------------------------------------------------------------------------///
     ///                                          VO动态避障                                                        ///
@@ -139,12 +112,14 @@ class PasserGuy{
       return free_path;
     }
 
+    Initial(){
+      this.GenerateAtStartPoint();
+      this.VisTool = new DataVis_Guy();
+    }
 
-
-
-    Initial(){}
     Update(ObsList){
       this.Find_Path(ObsList);
+      this.VisTool.Update(this.Guy.translation);
       //this.Move(frameCount);
       //this.Stop();
       //this.RayTesting(PeopleList);
