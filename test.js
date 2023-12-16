@@ -3,8 +3,10 @@ var TWO_PI = Math.PI * 2;
 
 var two = new Two({
   type: Two.Types.svg,
-  fullscreen: true
-}).appendTo(document.body);
+  width: 1700, 
+  height: 1000,
+  fullscreen: false
+}).appendTo(document.getElementById("Vis_Region"));
 
 
 
@@ -25,11 +27,19 @@ for(var i = 0 ; i<1 ; i++){
 peopleArray.forEach(function(p){p.Initial()});
 
             //获取鼠标点击，改变目标位置
-document.addEventListener("click", function (e) {
+
+function updateClickPosition(event) {
+  // 获取相对于SVG元素的鼠标坐标
+  const svgRect = two.renderer.domElement.getBoundingClientRect();
+  var x = event.clientX - svgRect.left;
+  var y = event.clientY - svgRect.top;
   peopleArray.forEach(function(p){
-    p.ChangeDestination(e.clientX,e.clientY);
+    p.ChangeDestination(x,y);
   })
-})
+
+}
+
+two.renderer.domElement.addEventListener('click', updateClickPosition);
 ///--------------------------------------------------------------------------
 
 

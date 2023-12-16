@@ -58,7 +58,10 @@ class PasserGuy{
     ///--------------------------------
     Check_Reached(){
       var is_reach = false;
-      if(this.Guy.translation.distanceTo(this.EndPoint) < 6)is_reach = true;
+      if(this.Guy.translation.distanceTo(this.EndPoint) < 6){
+        is_reach = true;
+        this.VisTool.clearPath();
+      }
       return is_reach;
     }
 
@@ -92,7 +95,12 @@ class PasserGuy{
       Paths.sort(function(a,b){
         return a.distanceTo(END) - b.distanceTo(END);
       });
-      this.Guy.translation = Paths[0];
+      if(Paths.length != 0){
+        this.Guy.translation = Paths[0];
+      }
+      else{
+        this.Guy.translation = this.Future_P[0];
+      }
     }
 
     ///--------------------------------
