@@ -22,6 +22,4 @@ function updateParameter(parameter, value) {
 
 
 //一些参数更新后会更新two的显示
-//障碍物加上贴图
-//trigger控制vis——tool的显示
-//一个刷新two.js的按钮
+//trigger控制vis——tool的显示,一个刷新two.js的按钮

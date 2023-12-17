@@ -22,7 +22,6 @@ class PasserGuy{
       this.Guy = new Two.Sprite(this.Texture,100,100,1,1,0);
       this.StartPoint = Start;
       this.EndPoint = End;
-      var tex = new Two.Texture(this.Texture);
       this.Guy.scale = 1;
     }
 

@@ -1,9 +1,13 @@
 class Obstacle{
     Obs;
+    Texture = 'Obs_Tex.png';
+
     Dir;
     Future_P;
     constructor(){
-        this.Obs = two.makeCircle(GlobalClass.Obs_Size,GlobalClass.Obs_Size,GlobalClass.Obs_Size);
+        //this.Obs = two.makeCircle(GlobalClass.Obs_Size,GlobalClass.Obs_Size,GlobalClass.Obs_Size);
+        this.Obs = new Two.Sprite(this.Texture,100,100,1,1,0);
+        this.Obs.scale = GlobalClass.Obs_Size / 100;
     }
 
     Initial(){
