@@ -61,13 +61,16 @@
         slider.value = GlobalClass[parameter];
         labelElement.appendChild(slider);
 
-        
-
         // 监听滑动条变化事件
         slider.addEventListener('input', () => {
         const sliderValue = parseFloat(slider.value);
         valueSpan.textContent = sliderValue;
         updateParameter(parameter, sliderValue);
+
+        if(parameter == 'Obs_Size' || parameter == 'number_obstacles'){
+            Update_Obstackel();
+            
+        }
         });
     }
 

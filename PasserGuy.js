@@ -113,10 +113,22 @@ class PasserGuy{
           var dis = i.distanceTo(j);
           if(dis<GlobalClass.Peo_Size + GlobalClass.Obs_Size + GlobalClass.safety_margin)flag = false;
         }
-        if(!flag)continue;
+        if(!flag){
+          continue;
+        }
+        
         free_path.push(i);
       }
       return free_path;
+    }
+
+    Vis_VO(Obs_pos){
+      var li = Obs_pos;
+      var thisPos = this.Guy.translation;
+      li.sort(function(a,b){
+        return a.distanceTo(thisPos) - b.distanceTo(thisPos);
+      });
+      this.VisTool.SetVisuallizeVO(this.Future_P[0],li[0]);
     }
 
     Initial(){
@@ -124,9 +136,11 @@ class PasserGuy{
       this.VisTool = new DataVis_Guy();
     }
 
-    Update(ObsList){
+    Update(ObsList,PosList){
       this.Find_Path(ObsList);
+      this.Vis_VO(PosList);
       this.VisTool.Update(this.Guy.translation);
+      
       //this.Move(frameCount);
       //this.Stop();
       //this.RayTesting(PeopleList);

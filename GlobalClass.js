@@ -21,5 +21,4 @@ function updateParameter(parameter, value) {
 
 
 
-//一些参数更新后会更新two的显示
-//trigger控制vis——tool的显示,一个刷新two.js的按钮
+//速度方向颜色，轨迹线颜色,速锥形状放大，速锥颜色

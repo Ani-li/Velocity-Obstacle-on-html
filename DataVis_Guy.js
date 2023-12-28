@@ -4,6 +4,12 @@ class DataVis_Guy{
 
     PathVert;
     Path;
+
+    //可视化视锥
+    VOPStart;
+    VOPEnd;
+    VOPathVert;
+    VOPath;
     constructor(){
         this.arrow = two.makeArrow(0, 0, 100,0);
         this.Past_Dir = new Two.Vector(1,1);
@@ -13,6 +19,14 @@ class DataVis_Guy{
         this.Path = new Two.Path(this.PathVert,false,false,false);
         this.Path.fill = 'none';
         two.add(this.Path);
+
+        this.VOPathVert = []
+        this.VOPath = new Two.Path(this.VOPathVert,false,false,false);
+        this.VOPath.fill = 'none';
+        two.add(this.VOPath);
+
+        this.VOPStart = new Two.Vector(-1,-1);
+        this.VOPEnd = new Two.Vector(-1,-1);
     }
 
 
@@ -28,10 +42,36 @@ class DataVis_Guy{
         
         this.PathVert.push(new Two.Anchor(pos.x,pos.y,pos.x,pos.y,pos.x,pos.y,Two.Commands.line))
         this.Path.vertices = this.PathVert;
+
+        this.VisuallizeVO();
     }
 
     clearPath(){
         this.PathVert = [];
         this.Path.vertices = this.PathVert;
+    }
+
+    //可视化速锥
+    VisuallizeVO(){
+        var dir = new Two.Vector(this.VOPEnd.x,this.VOPEnd.y).sub(this.VOPStart);
+        var dirX = new Two.Vector(-dir.y,dir.x);
+        var dirY = new Two.Vector(dir.y,-dir.x);
+        dirX = dirX.normalize().multiply(GlobalClass.Obs_Size);
+        dirY = dirY.normalize().multiply(GlobalClass.Obs_Size);
+
+        var point01 = new Two.Vector(this.VOPEnd.x,this.VOPEnd.y).add(dirX);
+        var point02 = new Two.Vector(this.VOPEnd.x,this.VOPEnd.y).add(dirY);
+
+        this.VOPathVert = [];
+        this.VOPathVert.push(new Two.Anchor(this.VOPStart.x,this.VOPStart.y,this.VOPStart.x,this.VOPStart.y,this.VOPStart.x,this.VOPStart.y,Two.Commands.line));
+        this.VOPathVert.push(new Two.Anchor(point01.x,point01.y,point01.x,point01.y,point01.x,point01.y,Two.Commands.line));
+        this.VOPathVert.push(new Two.Anchor(point02.x,point02.y,point02.x,point02.y,point02.x,point02.y,Two.Commands.line));
+        this.VOPathVert.push(new Two.Anchor(this.VOPStart.x,this.VOPStart.y,this.VOPStart.x,this.VOPStart.y,this.VOPStart.x,this.VOPStart.y,Two.Commands.line));
+        this.VOPath.vertices = this.VOPathVert;
+    }
+
+    SetVisuallizeVO(i,j){
+        this.VOPStart = i;
+        this.VOPEnd = j;
     }
 }

@@ -54,7 +54,27 @@ for(var i = 0 ; i<GlobalClass.number_obstacles ; i++){
 Obs_list.forEach(function(o){
   o.Initial();
 })
+
+function Update_Obstackel(){
+  
+  Obs_list.forEach(function(o){
+    background.remove(o.Obs);
+  })
+
+  Obs_list = [];
+
+  for(var i = 0 ; i<GlobalClass.number_obstacles ; i++){
+    var obs = new Obstacle();
+    Obs_list.push(obs);
+  }
+
+  Obs_list.forEach(function(o){
+    o.Initial();
+  })
+}
 ///--------------------------------------------------------------------------
+
+
 
 
 ///--------------------------------
@@ -66,6 +86,7 @@ two
   })
   .bind('update', function(frameCount) {
     Obs_Pos_list = []
+    Obs_Pos_All = []
 
     peopleArray.forEach(function(p){
       background.add(p.Guy);
@@ -77,9 +98,10 @@ two
     Obs_list.forEach(function(o){
       var p = o.Update();
       Obs_Pos_list.push(p);
+      Obs_Pos_All.push(p);
     });
     peopleArray.forEach(function(p){
-      p.Update(Obs_Pos_list);
+      p.Update(Obs_Pos_list,Obs_Pos_All);
     })
   })
   .play();
