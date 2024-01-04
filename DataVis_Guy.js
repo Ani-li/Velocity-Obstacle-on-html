@@ -31,6 +31,39 @@ class DataVis_Guy{
 
 
     Update(pos){
+        this.VisuallizeDirection(pos);
+        this.VisuallizeTrack(pos);
+        this.VisuallizeVO();
+
+        if(GlobalClass.Vis_Direction){
+            this.arrow.visible = true;
+        }
+        else{
+            this.arrow.visible = false;
+        }
+        
+        if(GlobalClass.Vis_Track){
+            this.Path.visible = true;
+        }
+        else{
+            this.Path.visible = false;
+        }
+
+        if(GlobalClass.Vis_VelocityObs){
+            this.VOPath.visible = true;
+        }
+        else{
+            this.VOPath.visible = false;
+        }
+    }
+
+    clearPath(){
+        this.PathVert = [];
+        this.Path.vertices = this.PathVert;
+    }
+
+    //可视化方向
+    VisuallizeDirection(pos){
         var dir = new Two.Vector(pos.x,pos.y).sub(this.arrow.translation);
         dir = dir.normalize();
 
@@ -39,15 +72,11 @@ class DataVis_Guy{
         }
         this.arrow.translation = pos;
         this.Past_Dir = dir;
-        
-        this.PathVert.push(new Two.Anchor(pos.x,pos.y,pos.x,pos.y,pos.x,pos.y,Two.Commands.line))
-        this.Path.vertices = this.PathVert;
-
-        this.VisuallizeVO();
     }
 
-    clearPath(){
-        this.PathVert = [];
+    //可视化轨迹
+    VisuallizeTrack(pos){
+        this.PathVert.push(new Two.Anchor(pos.x,pos.y,pos.x,pos.y,pos.x,pos.y,Two.Commands.line))
         this.Path.vertices = this.PathVert;
     }
 

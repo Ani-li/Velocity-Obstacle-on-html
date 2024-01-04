@@ -15,6 +15,7 @@
             padding: 20px;
             display: flex;
             flex-direction: column;
+            align-items: flex-start; /* 设置为 flex-start 以保持在垂直方向上的对齐 */
         }
 
         #Vis_Region {
@@ -74,6 +75,34 @@
         });
     }
 
+    function createTickBox(parameter,label,description){
+        var CheckBox = document.createElement("input");
+        CheckBox.type = "checkbox";
+        CheckBox.id = `${label}` + "dynamicCheckBox";
+        CheckBox.id = "dynamicCheckBox";
+
+        var label = document.createElement("label");
+        label.htmlFor = `${label}` + "dynamicCheckBox";
+        label.htmlFor = "dynamicCheckBox";
+        label.appendChild(document.createTextNode(`${description}`));
+
+        let slidersContainer = document.getElementById('slider-container');
+        slidersContainer.appendChild(label);
+        slidersContainer.appendChild(CheckBox);
+        
+        CheckBox.addEventListener("change", function() {
+        // 检查勾选框的状态
+        if (CheckBox.checked) {
+            updateParameter(parameter,true);
+        } else {
+            updateParameter(parameter,false);
+        }
+    });
+
+    }
+
+    
+
     // 创建一系列滑动条
     createSlider('Peo_Speed', '人物速度', 0, 10, 0.1);
     createSlider('Peo_Dir_Sampler_cut', '方向采样数', 0, 100, 1);
@@ -81,6 +110,11 @@
     createSlider('Obs_Size', '障碍物大小', 10, 100, 1);
     createSlider('number_obstacles', '障碍物数量', 0, 50, 1);
     createSlider('safety_margin', '安全距离', 0, 40, 1);
+
+    //创建勾选框
+    createTickBox("Vis_Direction","VisDir","显示速度");
+    createTickBox("Vis_Track","VisTra","显示轨迹");
+    createTickBox("Vis_VelocityObs","VisVO","显示速锥");
 </script>
 </body>
 </html>

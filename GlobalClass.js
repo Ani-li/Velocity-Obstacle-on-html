@@ -10,6 +10,10 @@ class GlobalClass{
     static safety_margin = 7;
     static number_obstacles = 20;
     static Peo_Dir_Sampler_cut = 50;
+
+    static Vis_Direction = false;
+    static Vis_Track = false;
+    static Vis_VelocityObs = false;
 }
 
 ///--------------------------------
@@ -19,6 +23,3 @@ function updateParameter(parameter, value) {
     GlobalClass[parameter] = value;
 }
 
-
-
-//速度方向颜色，轨迹线颜色,速锥形状放大，速锥颜色
